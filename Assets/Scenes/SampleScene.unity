@@ -179,7 +179,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 58.715508
+  field of view: 59.770546
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -541,6 +541,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
   moveSpeed: 4
+  rotationSpeed: 4
+  pivot: {fileID: 846348695}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +602,6 @@ GameObject:
   m_Component:
   - component: {fileID: 840845460}
   - component: {fileID: 840845463}
-  - component: {fileID: 840845462}
   - component: {fileID: 840845461}
   m_Layer: 0
   m_Name: Arms Camera
@@ -668,14 +669,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &840845462
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 840845459}
-  m_Enabled: 1
 --- !u!20 &840845463
 Camera:
   m_ObjectHideFlags: 0
@@ -773,6 +766,7 @@ GameObject:
   - component: {fileID: 1308695008}
   - component: {fileID: 1308695007}
   - component: {fileID: 1308695006}
+  - component: {fileID: 1308695009}
   m_Layer: 3
   m_Name: Pointer
   m_TagString: Untagged
@@ -792,7 +786,8 @@ Transform:
   m_LocalPosition: {x: 0.321, y: -0.406, z: 0.622}
   m_LocalScale: {x: 0.26426172, y: 0.26426172, z: 0.26426172}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1379441574}
   m_Father: {fileID: 846348695}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!136 &1308695006
@@ -875,6 +870,59 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308695004}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1308695009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308695004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba67f47a3ae0c041b388104e787163b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitscanWeapon
+  maxAmmo: 0
+  minAmmo: 0
+  damage: 0
+  timeBetweenShots: 0
+  bulletSpawnPoint: {fileID: 1379441574}
+  ammoCounter: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  range: 100
+--- !u!1 &1379441573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1379441574}
+  m_Layer: 3
+  m_Name: BulletSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1379441574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379441573}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.3, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1308695005}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1982422716
 GameObject:
   m_ObjectHideFlags: 0
