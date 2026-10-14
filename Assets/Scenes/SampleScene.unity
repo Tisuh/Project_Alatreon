@@ -648,7 +648,8 @@ MonoBehaviour:
   moveSpeed: 4
   rotationSpeed: 4
   jumpForce: 4
-  dashForce: 10
+  dashForce: 20
+  dashDuration: 0.2
   pivot: {fileID: 846348695}
 --- !u!114 &615257705
 MonoBehaviour:

@@ -1,12 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
-    [Header("Stats")]
+    [Header("General Stats")]
     [SerializeField] private float moveSpeed = 4;
     [SerializeField] private float rotationSpeed = 4;
     [SerializeField] private float jumpForce = 4;
+
+    [Header("Dash Stats")]
     [SerializeField] private float dashForce = 10;
+    [SerializeField] private float dashDuration = 10;
 
     [Header("Refs")]
     [SerializeField] private Transform pivot;
@@ -15,6 +19,7 @@ public class FirstPersonController : MonoBehaviour
     private Vector3 input;
     private float pivotRotationX;
     private GroundChecker gc;
+    private bool isDashing;
 
     private void Start()
     {
@@ -37,13 +42,40 @@ public class FirstPersonController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
         }
+
+        if (Input.GetKeyDown("left shift")) // Dash
+        {
+            if (input.sqrMagnitude > 0.001f)
+            {
+                rb.linearVelocity = new Vector3(0, 0, 0);
+                rb.AddForce(input * dashForce, ForceMode.VelocityChange);
+                isDashing = true;
+                StartCoroutine(IsDashingCrt());
+            }
+            else
+            {
+                rb.linearVelocity = new Vector3(0, 0, 0);
+                rb.AddForce(transform.forward * dashForce, ForceMode.VelocityChange);
+                isDashing = true;
+                StartCoroutine(IsDashingCrt());
+            }
+        }
     }
 
     private void FixedUpdate()
     {
+        if (isDashing) return;
+
         Vector3 movement = input * moveSpeed; // Calcular la velocidad de movimiento
         movement.y = rb.linearVelocity.y; // Conservar la velocidad vertical para mantener la gravedad
 
         rb.linearVelocity = movement; // Aplicar el movimiento al Rigidbody
+    }
+
+
+    IEnumerator IsDashingCrt()
+    {
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
     }
 }

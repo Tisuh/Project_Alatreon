@@ -17,8 +17,10 @@ public class InteractableDetector : MonoBehaviour
     {
         ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
 
-        Physics.SphereCast(ray, sphereRadius, out RaycastHit hit, detectionRange, interactableLayer);
-        Debug.Log($"Estoy detectando el objeto: {hit.collider}");
+        if (Physics.SphereCast(ray, sphereRadius, out RaycastHit hit, detectionRange, interactableLayer))
+        {
+            Debug.Log($"Estoy detectando el objeto: {hit.collider}");
+        }
     }
 
     private void OnDrawGizmos()
