@@ -30,7 +30,7 @@ public abstract class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && Time.time >= timeToShoot)
+        if (Input.GetMouseButton(0) && Time.time >= timeToShoot && currentAmmo > 0)
         {
             timeToShoot = Time.time + timeBetweenShots;
             currentAmmo -= 1;
