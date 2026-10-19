@@ -5,12 +5,24 @@ public class InteractableDetector : MonoBehaviour
     [SerializeField] private float sphereRadius = 1;
     [SerializeField] private float detectionRange = 1;
     [SerializeField] private LayerMask interactableLayer;
+    [SerializeField] private InteractableItem interactableInHand;
+    [SerializeField] private InteractableItem detectedInteractable;
+    [SerializeField] private Transform pickUpPoint;
 
     private Ray ray;
 
     void Update()
     {
-        Detect();
+        if (Input.GetButtonDown("Interact") && detectedInteractable != null)
+        {
+            interactableInHand = detectedInteractable;
+            
+        }
+
+        if (interactableInHand == null)
+        {
+            Detect();
+        }
     }
 
     void Detect()
@@ -19,7 +31,14 @@ public class InteractableDetector : MonoBehaviour
 
         if (Physics.SphereCast(ray, sphereRadius, out RaycastHit hit, detectionRange, interactableLayer))
         {
-            Debug.Log($"Estoy detectando el objeto: {hit.collider}");
+            if (detectedInteractable == null)
+            {
+                detectedInteractable = hit.collider.GetComponent<InteractableItem>();
+            }
+        }
+        else if (detectedInteractable != null)
+        {
+            detectedInteractable = null;
         }
     }
 
