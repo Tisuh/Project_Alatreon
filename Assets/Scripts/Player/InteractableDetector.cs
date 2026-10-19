@@ -7,7 +7,6 @@ public class InteractableDetector : MonoBehaviour
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private InteractableItem interactableInHand;
     [SerializeField] private InteractableItem detectedInteractable;
-    [SerializeField] private Transform pickUpPoint;
 
     private Ray ray;
 
@@ -15,8 +14,7 @@ public class InteractableDetector : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact") && detectedInteractable != null)
         {
-            interactableInHand = detectedInteractable;
-            
+            detectedInteractable.Interact();
         }
 
         if (interactableInHand == null)
