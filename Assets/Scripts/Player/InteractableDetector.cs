@@ -5,21 +5,34 @@ public class InteractableDetector : MonoBehaviour
     [SerializeField] private float sphereRadius = 1;
     [SerializeField] private float detectionRange = 1;
     [SerializeField] private LayerMask interactableLayer;
-    [SerializeField] private InteractableItem interactableInHand;
-    [SerializeField] private InteractableItem detectedInteractable;
+    [SerializeField] public PickUp interactableInHand;
+    [SerializeField] private Interactable detectedInteractable;
+    [SerializeField] private Transform PickUpPoint;
+    [SerializeField] private Vector3 throwDirection;
 
     private Ray ray;
 
     void Update()
     {
-        if (Input.GetButtonDown("Interact") && detectedInteractable != null)
-        {
-            detectedInteractable.Interact();
-        }
-
         if (interactableInHand == null)
         {
             Detect();
+        }
+        else if (Input.GetButtonDown("Interact"))
+        {
+            interactableInHand.DropItem();
+            interactableInHand = null;
+        }
+        else if (Input.GetButtonDown("Throw"))
+        {
+            interactableInHand.ThrowItem(ray.direction);
+            interactableInHand = null;
+        }
+
+        if (Input.GetButtonDown("Interact") && detectedInteractable != null)
+        {
+            detectedInteractable.Interact(PickUpPoint);
+            detectedInteractable = null;
         }
     }
 
@@ -31,7 +44,7 @@ public class InteractableDetector : MonoBehaviour
         {
             if (detectedInteractable == null)
             {
-                detectedInteractable = hit.collider.GetComponent<InteractableItem>();
+                detectedInteractable = hit.collider.GetComponent<Interactable>();
             }
         }
         else if (detectedInteractable != null)

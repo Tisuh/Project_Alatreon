@@ -32,7 +32,7 @@ public class FirstPersonController : MonoBehaviour
         input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized; // Capturar input WASD
         input = transform.TransformDirection(input); // Transformar el vector de input para que sea relativo al jugador
 
-        transform.Rotate(new Vector3(0, Input.GetAxisRaw("Mouse X"), 0)); // Rotacion en Y (movimiento horizontal del raton)
+        transform.Rotate(new Vector3(0, Input.GetAxisRaw("Mouse X") * rotationSpeed, 0)); // Rotacion en Y (movimiento horizontal del raton)
 
         pivotRotationX -= Input.GetAxisRaw("Mouse Y") * rotationSpeed; // Guardar rotacion en X (movimiento vertical del raton) en una variable
         pivotRotationX = Mathf.Clamp(pivotRotationX, -90, 90); // Limitar rotacion en X

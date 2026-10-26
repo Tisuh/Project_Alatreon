@@ -2,11 +2,9 @@ using UnityEngine;
 
 public class HitscanWeapon : WeaponController
 {
-    [Header("HitScan Stats")]
-    [SerializeField] private int weaponRange = 100;
-
     [Header("HitScan Refs")]
-    [SerializeField] private LayerMask enemyLayer = 7;
+    [SerializeField] private LayerMask enemyLayer;
+
 
 
     public override void Shoot()

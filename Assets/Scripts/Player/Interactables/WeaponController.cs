@@ -1,18 +1,19 @@
 using UnityEngine;
 using TMPro;
 
-public abstract class WeaponController : MonoBehaviour
+public abstract class WeaponController : PickUp
 {
-    [Header("Main Class Stats")]
+    [Header("Stats")]
     [SerializeField] private int maxAmmo;
     [SerializeField] private int minAmmo;
+    [SerializeField] protected int currentAmmo;
     [SerializeField] private int damage;
     [SerializeField] private int rpm = 600;
+    [SerializeField] protected int weaponRange = 100;
 
     [Header("Refs")]
     [SerializeField] private TextMeshProUGUI ammoCounter;
     
-    protected int currentAmmo;
     protected float timeToShoot;
     protected float timeBetweenShots;
     protected Camera cam;
