@@ -647,9 +647,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
   moveSpeed: 4
   rotationSpeed: 4
-  jumpForce: 4
+  jumpForce: 9
   dashForce: 20
   dashDuration: 0.2
+  dashCooldown: 0.5
   pivot: {fileID: 846348695}
 --- !u!114 &615257705
 MonoBehaviour:
