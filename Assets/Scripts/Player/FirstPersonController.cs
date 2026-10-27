@@ -17,9 +17,10 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private Transform pivot;
 
     private Rigidbody rb;
+    private GroundChecker gc;
+    private LedgeClimber ledgeClimber;
     private Vector3 input;
     private float pivotRotationX;
-    private GroundChecker gc;
     private bool isDashing;
     private bool canDash = true;
 
@@ -27,6 +28,8 @@ public class FirstPersonController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         gc = GetComponent<GroundChecker>();
+        ledgeClimber = GetComponent<LedgeClimber>();
+
     }
 
     private void Update()
@@ -47,21 +50,23 @@ public class FirstPersonController : MonoBehaviour
 
         if (Input.GetButtonDown("Dash") && canDash) // Dash
         {
-            if (input.sqrMagnitude > 0.001f)
+            if (input.sqrMagnitude > 0.001f) // Si la magnitud es mayor de 0.001f dashea en la dirección del movimiento
             {
                 rb.linearVelocity = new Vector3(0, 0, 0);
                 rb.AddForce(input * dashForce, ForceMode.VelocityChange);
                 isDashing = true;
                 canDash = false;
+                rb.useGravity = false;
 
                 StartCoroutine(IsDashingCrt());
             }
-            else
+            else // Si la magnitud es menor de 0.001f dashea hacia delante
             {
                 rb.linearVelocity = new Vector3(0, 0, 0);
                 rb.AddForce(transform.forward * dashForce, ForceMode.VelocityChange);
                 isDashing = true;
                 canDash = false;
+                rb.useGravity = false;
 
                 StartCoroutine(IsDashingCrt());
             }
@@ -79,12 +84,14 @@ public class FirstPersonController : MonoBehaviour
     }
 
 
+
     IEnumerator IsDashingCrt()
     {
-        yield return new WaitForSeconds(dashDuration);
+        yield return new WaitForSeconds(dashDuration); // Tiempo para terminar el dash
         isDashing = false;
+        rb.useGravity = true;
 
-        yield return new WaitForSeconds(dashCooldown - dashDuration);
+        yield return new WaitForSeconds(dashCooldown - dashDuration); // Tiempo para recargar el dash
         while (!gc.isGrounded)
         {
             yield return null;
