@@ -15,6 +15,12 @@ public class LedgeClimber : MonoBehaviour
     [SerializeField] private Vector3 targetPositionOffset;
 
     private RaycastHit hit;
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
@@ -25,7 +31,11 @@ public class LedgeClimber : MonoBehaviour
             {
                 if (!Physics.Raycast(hit.point + ledgeClimberPointOffset, Vector3.down, ledgeClimberPointRange, ledgeClimberLayerMask)) // Lanzar raycast hacia abajo para comprobar que haya espacio
                 {
-                    transform.position = hit.point + targetPositionOffset;
+                    if (Physics.Raycast(hit.point + ledgeClimberPointOffset, Vector3.down, out RaycastHit secondHit, 2, ledgeClimberLayerMask)) // Lanzar raycast para comprobar a que punto mover el personaje
+                    {
+                        transform.position = secondHit.point + targetPositionOffset;
+                        rb.linearVelocity = Vector3.zero;
+                    }
                 }
             }
         }
