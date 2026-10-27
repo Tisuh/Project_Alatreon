@@ -21,7 +21,7 @@ public class FirstPersonController : MonoBehaviour
     private float pivotRotationX;
     private GroundChecker gc;
     private bool isDashing;
-    private bool isDashInCooldown;
+    private bool canDash = true;
 
     private void Start()
     {
@@ -45,14 +45,14 @@ public class FirstPersonController : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
         }
 
-        if (Input.GetKeyDown("left shift") && !isDashInCooldown) // Dash
+        if (Input.GetButtonDown("Dash") && canDash) // Dash
         {
             if (input.sqrMagnitude > 0.001f)
             {
                 rb.linearVelocity = new Vector3(0, 0, 0);
                 rb.AddForce(input * dashForce, ForceMode.VelocityChange);
                 isDashing = true;
-                isDashInCooldown = true;
+                canDash = false;
 
                 StartCoroutine(IsDashingCrt());
             }
@@ -61,7 +61,7 @@ public class FirstPersonController : MonoBehaviour
                 rb.linearVelocity = new Vector3(0, 0, 0);
                 rb.AddForce(transform.forward * dashForce, ForceMode.VelocityChange);
                 isDashing = true;
-                isDashInCooldown = true;
+                canDash = false;
 
                 StartCoroutine(IsDashingCrt());
             }
@@ -83,7 +83,12 @@ public class FirstPersonController : MonoBehaviour
     {
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+
         yield return new WaitForSeconds(dashCooldown - dashDuration);
-        isDashInCooldown = false;
+        while (!gc.isGrounded)
+        {
+            yield return null;
+        }
+        canDash = true;
     }
 }
