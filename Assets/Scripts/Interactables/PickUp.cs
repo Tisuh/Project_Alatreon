@@ -53,6 +53,6 @@ public class PickUp : Interactable
     public void ThrowItem(Vector3 throwDirection) // Lanzar objeto
     {
         DropItem(); // Reutilizar DropItem
-        rb.AddForce(throwDirection * throwForce, ForceMode.VelocityChange); // Aplicar fuerza
+        rb.AddForce(throwDirection.normalized * throwForce, ForceMode.VelocityChange); // Aplicar fuerza
     }
 }
