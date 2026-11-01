@@ -25,7 +25,7 @@ public class InteractableDetector : MonoBehaviour
         }
         else if (Input.GetButtonDown("Throw"))
         {
-            interactableInHand.ThrowItem(ray.direction);
+            interactableInHand.ThrowItem(Camera.main.transform.forward);
             interactableInHand = null;
         }
 
