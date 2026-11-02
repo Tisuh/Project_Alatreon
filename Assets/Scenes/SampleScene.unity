@@ -1071,7 +1071,6 @@ MonoBehaviour:
   interactableInHand: {fileID: 0}
   detectedInteractable: {fileID: 0}
   PickUpPoint: {fileID: 1461249199}
-  throwDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &615257707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1867,7 +1866,7 @@ GameObject:
   - component: {fileID: 1391845469}
   - component: {fileID: 1391845472}
   - component: {fileID: 1391845468}
-  - component: {fileID: 1391845467}
+  - component: {fileID: 1391845473}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
@@ -1875,19 +1874,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1391845467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1391845466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c98562e40ad0c9478e57e959d542208, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableItem
-  throwForce: 20
 --- !u!65 &1391845468
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2008,6 +1994,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1391845473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391845466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7e8b84fed1c7b469072f39707af2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GenericThrowable
+  throwForce: 50
 --- !u!1 &1461249198
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PickUp : Interactable
+public abstract class BasePickUp : Interactable
 {
     private InteractableDetector intDet;
 
@@ -36,7 +36,7 @@ public class PickUp : Interactable
         gameObject.layer = LayerMask.NameToLayer("Arms"); // Cambiar capa a Arms
 
         intDet = GetComponentInParent<InteractableDetector>(); // Guardar referencia al InteractableDetector del player
-        intDet.interactableInHand = GetComponent<PickUp>();
+        intDet.interactableInHand = GetComponent<BasePickUp>();
     }
 
     public void DropItem()
@@ -50,9 +50,11 @@ public class PickUp : Interactable
         intDet = null; // Eliminar referencia al InteractableDetector del player
     }
 
-    public void ThrowItem(Vector3 throwDirection) // Lanzar objeto
+    public void ThrowItem() // Lanzar objeto
     {
         DropItem(); // Reutilizar DropItem
-        rb.AddForce(throwDirection.normalized * throwForce, ForceMode.VelocityChange); // Aplicar fuerza
+        rb.AddForce(Camera.main.transform.forward.normalized * throwForce, ForceMode.VelocityChange); // Aplicar fuerza
     }
+
+    public abstract void Shoot();
 }

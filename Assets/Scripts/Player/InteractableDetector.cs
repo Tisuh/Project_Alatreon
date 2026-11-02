@@ -5,10 +5,9 @@ public class InteractableDetector : MonoBehaviour
     [SerializeField] private float sphereRadius = 1;
     [SerializeField] private float detectionRange = 1;
     [SerializeField] private LayerMask interactableLayer;
-    [SerializeField] public PickUp interactableInHand;
+    [SerializeField] public BasePickUp interactableInHand;
     [SerializeField] private Interactable detectedInteractable;
     [SerializeField] private Transform PickUpPoint;
-    [SerializeField] private Vector3 throwDirection;
 
     private Ray ray;
 
@@ -25,7 +24,12 @@ public class InteractableDetector : MonoBehaviour
         }
         else if (Input.GetButtonDown("Throw"))
         {
-            interactableInHand.ThrowItem(Camera.main.transform.forward);
+            interactableInHand.ThrowItem();
+            interactableInHand = null;
+        }
+        else if (Input.GetButtonDown("Shoot"))
+        {
+            interactableInHand.Shoot();
             interactableInHand = null;
         }
 

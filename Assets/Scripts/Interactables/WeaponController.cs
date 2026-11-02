@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public abstract class WeaponController : PickUp
+public abstract class WeaponController : BasePickUp
 {
     [Header("Stats")]
     [SerializeField] private int maxAmmo;
@@ -41,5 +41,8 @@ public abstract class WeaponController : PickUp
         }
     }
 
-    public abstract void Shoot();
+    public override void Shoot()
+    {
+        throw new System.NotImplementedException();
+    }
 }
