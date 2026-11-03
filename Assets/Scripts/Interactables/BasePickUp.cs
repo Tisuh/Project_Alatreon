@@ -56,5 +56,5 @@ public abstract class BasePickUp : Interactable
         rb.AddForce(Camera.main.transform.forward.normalized * throwForce, ForceMode.VelocityChange); // Aplicar fuerza
     }
 
-    public abstract void Shoot();
+    public abstract void TryToShoot();
 }

@@ -19,6 +19,7 @@ public abstract class WeaponController : BasePickUp
     protected Camera cam;
 
 
+
     private void Start()
     {
         timeBetweenShots = 60f / rpm;
@@ -31,18 +32,23 @@ public abstract class WeaponController : BasePickUp
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && Time.time >= timeToShoot && currentAmmo > 0)
-        {
-            timeToShoot = Time.time + timeBetweenShots;
-            currentAmmo -= 1;
-            ammoCounter.text = currentAmmo.ToString();
-
-            Shoot();
-        }
+        
     }
 
-    public override void Shoot()
+
+
+    protected virtual void Shoot()
     {
-        throw new System.NotImplementedException();
+        timeToShoot = Time.time + timeBetweenShots;
+        currentAmmo -= 1;
+        ammoCounter.text = currentAmmo.ToString();
+    }
+
+    public override void TryToShoot()
+    {
+        if (Time.time >= timeToShoot && currentAmmo > 0)
+        {
+            Shoot();
+        }
     }
 }

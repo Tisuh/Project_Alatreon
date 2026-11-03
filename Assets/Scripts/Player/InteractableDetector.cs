@@ -27,9 +27,9 @@ public class InteractableDetector : MonoBehaviour
             interactableInHand.ThrowItem();
             interactableInHand = null;
         }
-        else if (Input.GetButtonDown("Shoot"))
+        else if (Input.GetButton("Shoot"))
         {
-            interactableInHand.Shoot();
+            interactableInHand.TryToShoot();
             interactableInHand = null;
         }
 

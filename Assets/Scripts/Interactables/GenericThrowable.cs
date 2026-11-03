@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GenericThrowable : BasePickUp
 {
-    public override void Shoot()
+    public override void TryToShoot()
     {
         ThrowItem();
     }

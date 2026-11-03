@@ -7,8 +7,10 @@ public class HitscanWeapon : WeaponController
 
 
 
-    public override void Shoot()
+    protected override void Shoot()
     {
+        base.Shoot();
+
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, cam.nearClipPlane));
         Physics.Raycast(ray, out RaycastHit hit, weaponRange);
 
