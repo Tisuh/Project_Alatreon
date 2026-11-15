@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - PickUp
+  - EnemyWaypoints
   layers:
   - Default
   - TransparentFX
