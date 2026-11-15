@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BasePickUp : Interactable
+public abstract class BasePickUp : BaseInteractable
 {
     private InteractableDetector intDet;
 
@@ -9,7 +9,7 @@ public abstract class BasePickUp : Interactable
 
     [SerializeField] private float throwForce = 50;
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();

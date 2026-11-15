@@ -15,6 +15,7 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Refs")]
     [SerializeField] private Transform pivot;
+    [SerializeField] private GameObject grapplingHook;
 
     private Rigidbody rb;
     private GroundChecker gc;
@@ -70,6 +71,11 @@ public class FirstPersonController : MonoBehaviour
 
                 StartCoroutine(IsDashingCrt());
             }
+        }
+
+        if (Input.GetButtonDown("GrapplingHook")) // Grappling Hook
+        {
+            grapplingHook.SetActive(true);
         }
     }
 

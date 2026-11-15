@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public abstract class WeaponController : BasePickUp
 {
@@ -26,8 +27,6 @@ public abstract class WeaponController : BasePickUp
         cam = Camera.main;
         currentAmmo = Random.Range(minAmmo, maxAmmo);
         ammoCounter.text = currentAmmo.ToString();
-
-        Debug.Log(timeBetweenShots);
     }
 
     private void Update()
