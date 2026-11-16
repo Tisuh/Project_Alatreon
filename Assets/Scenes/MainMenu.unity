@@ -127,9 +127,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 325667227}
     m_Modifications:
+    - target: {fileID: 1545031400979945821, guid: 6b376f9ad3d038c408fb00cbdea60bf9, type: 3}
+      propertyPath: m_Text
+      value: Enter
+      objectReference: {fileID: 0}
     - target: {fileID: 4807926279420409396, guid: 6b376f9ad3d038c408fb00cbdea60bf9, type: 3}
       propertyPath: m_Text
-      value: "Asignaci\xF3n de controles\n"
+      value: 'Control assignment
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 5838545807451653920, guid: 6b376f9ad3d038c408fb00cbdea60bf9, type: 3}
       propertyPath: m_Pivot.x
@@ -225,6 +231,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5838545807451653920, guid: 6b376f9ad3d038c408fb00cbdea60bf9, type: 3}
   m_PrefabInstance: {fileID: 18568640}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &18568642 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6740683910909002947, guid: 6b376f9ad3d038c408fb00cbdea60bf9, type: 3}
+  m_PrefabInstance: {fileID: 18568640}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &40109982
 GameObject:
   m_ObjectHideFlags: 0
@@ -4950,7 +4967,7 @@ PrefabInstance:
     - target: {fileID: 2313317481867970289, guid: 007943e2478f7184e9c8899f47a64d2d, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
-      objectReference: {fileID: 439885077}
+      objectReference: {fileID: 18568642}
     - target: {fileID: 2313317481867970289, guid: 007943e2478f7184e9c8899f47a64d2d, type: 3}
       propertyPath: m_Options.m_Options.Array.data[0].m_Text
       value: 720 x 480
