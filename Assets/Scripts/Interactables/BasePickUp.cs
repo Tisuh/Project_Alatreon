@@ -33,7 +33,7 @@ public abstract class BasePickUp : BaseInteractable
 
         col.enabled = false; // Deshabilitar collider
         rb.isKinematic = true; // Habilitar isKinematic
-        gameObject.layer = LayerMask.NameToLayer("Arms"); // Cambiar capa a Arms
+        ChangeLayers("Arms"); // Cambiar capa a Arms
 
         intDet = GetComponentInParent<InteractableDetector>(); // Guardar referencia al InteractableDetector del player
         intDet.interactableInHand = GetComponent<BasePickUp>();
@@ -45,7 +45,7 @@ public abstract class BasePickUp : BaseInteractable
 
         col.enabled = true; // Habilitar collider
         rb.isKinematic = false; // Deshabilitar isKinematic
-        gameObject.layer = LayerMask.NameToLayer("Interactable"); // Cambiar capa a Interactable
+        ChangeLayers("Interactable"); // Cambiar capa a Interactable
 
         intDet = null; // Eliminar referencia al InteractableDetector del player
     }
@@ -54,6 +54,16 @@ public abstract class BasePickUp : BaseInteractable
     {
         DropItem(); // Reutilizar DropItem
         rb.AddForce(Camera.main.transform.forward.normalized * throwForce, ForceMode.VelocityChange); // Aplicar fuerza
+    }
+
+    void ChangeLayers(string newLayer)
+    {
+        Transform[] hierarchyObjects = transform.GetComponentsInChildren<Transform>();
+
+        foreach (Transform hierarchyObj in hierarchyObjects)
+        {
+            hierarchyObj.gameObject.layer = LayerMask.NameToLayer($"{newLayer}");
+        }
     }
 
     public abstract void TryToShoot();
