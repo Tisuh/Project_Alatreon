@@ -33,7 +33,7 @@ public abstract class BasePickUp : BaseInteractable
 
         col.enabled = false; // Deshabilitar collider
         rb.isKinematic = true; // Habilitar isKinematic
-        ChangeLayers("Arms"); // Cambiar capa a Arms
+        ChangeLayers("Arms"); // Cambiar capas a Arms
 
         intDet = GetComponentInParent<InteractableDetector>(); // Guardar referencia al InteractableDetector del player
         intDet.interactableInHand = GetComponent<BasePickUp>();
@@ -45,7 +45,7 @@ public abstract class BasePickUp : BaseInteractable
 
         col.enabled = true; // Habilitar collider
         rb.isKinematic = false; // Deshabilitar isKinematic
-        ChangeLayers("Interactable"); // Cambiar capa a Interactable
+        ChangeLayers("Interactable"); // Cambiar capas a Interactable
 
         intDet = null; // Eliminar referencia al InteractableDetector del player
     }

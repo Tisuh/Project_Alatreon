@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,13 +6,21 @@ public class BaseEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject[] waypoints;
 
+    [Header("Detection")]
     [SerializeField] private float detectionRange;
     [SerializeField] private LayerMask detectionLayers;
     [SerializeField] private Transform detectedTarget;
     [SerializeField] [Range(0, 360)] private int visionAngle;
 
+    [Header("Combat")]
+    [SerializeField] private float attackRange = 2;
+    [SerializeField] private float attackCooldown = 2;
+
+
     private NavMeshAgent agent;
     private Transform chaseTarget;
+    private bool canAttack = true;
+    private float lookAtSpeed = 10;
 
     void Awake()
     {
@@ -92,6 +101,36 @@ public class BaseEnemy : MonoBehaviour
     void ChaseTarget()
     {
         agent.SetDestination(chaseTarget.position);
+
+        if (agent.remainingDistance <= attackRange)
+        {
+            agent.isStopped = true;
+            LookAtPlayer();
+            if (canAttack)
+            {
+                Attack();
+            }
+        }
+    }
+
+    protected virtual void Attack()
+    {
+
+    }
+
+    IEnumerator AttackCooldownCrt()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+
+    private void LookAtPlayer()
+    {
+        Vector3 directionToTarget = chaseTarget.position - transform.position; // Calcular la dirección hacia el jugador
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(directionToTarget.x, 0, directionToTarget.z)), 
+            Time.deltaTime * lookAtSpeed); // Rotar al personaje
     }
 
 
