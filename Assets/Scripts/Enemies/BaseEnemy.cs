@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BaseEnemy : MonoBehaviour
+public abstract class BaseEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject[] waypoints;
 
@@ -10,7 +10,7 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] private float detectionRange;
     [SerializeField] private LayerMask detectionLayers;
     [SerializeField] private Transform detectedTarget;
-    [SerializeField] [Range(0, 360)] private int visionAngle;
+    [SerializeField] [Range(0, 360)] private int visionAngle = 90;
 
     [Header("Combat")]
     [SerializeField] private float attackRange = 2;
@@ -22,7 +22,7 @@ public class BaseEnemy : MonoBehaviour
     private bool canAttack = true;
     private float lookAtSpeed = 10;
 
-    void Awake()
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
     }
@@ -109,14 +109,16 @@ public class BaseEnemy : MonoBehaviour
             if (canAttack)
             {
                 Attack();
+                StartCoroutine(AttackCooldownCrt());
             }
+        }
+        else
+        {
+            agent.isStopped = false;
         }
     }
 
-    protected virtual void Attack()
-    {
-
-    }
+    protected abstract void Attack();
 
     IEnumerator AttackCooldownCrt()
     {

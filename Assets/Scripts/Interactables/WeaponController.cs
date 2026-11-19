@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 
 public abstract class WeaponController : BasePickUp
 {
@@ -8,7 +7,7 @@ public abstract class WeaponController : BasePickUp
     [SerializeField] private int maxAmmo;
     [SerializeField] private int minAmmo;
     [SerializeField] protected int currentAmmo;
-    [SerializeField] private int damage;
+    [SerializeField] protected int damage;
     [SerializeField] private int rpm = 600;
     [SerializeField] protected int weaponRange = 100;
 
