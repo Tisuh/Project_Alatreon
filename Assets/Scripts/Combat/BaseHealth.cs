@@ -19,9 +19,9 @@ public abstract class BaseHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Die();
+            Death();
         }
     }
 
-    protected abstract void Die();
+    protected abstract void Death();
 }

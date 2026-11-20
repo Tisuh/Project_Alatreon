@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyHealth : BaseHealth
 {
-    protected override void Die()
+    protected override void Death()
     {
         Destroy(gameObject);
     }

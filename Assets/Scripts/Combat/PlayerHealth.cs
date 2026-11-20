@@ -4,7 +4,7 @@ public class PlayerHealth : BaseHealth
 {
     [SerializeField] private Transform respawnTf;
 
-    protected override void Die()
+    protected override void Death()
     {
         Respawn();
     }
