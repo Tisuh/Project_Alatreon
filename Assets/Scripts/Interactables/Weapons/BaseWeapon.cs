@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public abstract class WeaponController : BasePickUp
+public abstract class BaseWeapon : BasePickUp
 {
     [Header("Stats")]
     [SerializeField] private int maxAmmo;

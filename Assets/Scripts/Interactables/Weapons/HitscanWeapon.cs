@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HitscanWeapon : WeaponController
+public class HitscanWeapon : BaseWeapon
 {
     [Header("HitScan Refs")]
     [SerializeField] private LayerMask affectedLayers;
