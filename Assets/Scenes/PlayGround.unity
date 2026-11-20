@@ -1153,7 +1153,7 @@ GameObject:
   - component: {fileID: 488807801}
   - component: {fileID: 488807800}
   - component: {fileID: 488807799}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1788,7 +1788,7 @@ CapsuleCollider:
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &746117578
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1925,7 +1925,7 @@ GameObject:
   - component: {fileID: 840845461}
   m_Layer: 0
   m_Name: Arms Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2171,7 +2171,7 @@ CapsuleCollider:
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &883429344
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3238,7 +3238,7 @@ CapsuleCollider:
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1308590733
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3877,7 +3877,7 @@ GameObject:
   - component: {fileID: 1635930888}
   - component: {fileID: 1635930887}
   - component: {fileID: 1635930886}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3989,7 +3989,7 @@ GameObject:
   - component: {fileID: 1725416159}
   - component: {fileID: 1725416158}
   - component: {fileID: 1725416157}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4607,8 +4607,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitscanWeapon
   throwForce: 30
-  maxAmmo: 50
-  minAmmo: 30
+  maxAmmo: 4226
+  minAmmo: 1789
   currentAmmo: 0
   damage: 25
   rpm: 600

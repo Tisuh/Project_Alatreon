@@ -13,6 +13,8 @@ public abstract class BaseHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
+
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
