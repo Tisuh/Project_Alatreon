@@ -56,7 +56,7 @@ public abstract class BasePickUp : BaseInteractable
         rb.AddForce(Camera.main.transform.forward.normalized * throwForce, ForceMode.VelocityChange); // Aplicar fuerza
     }
 
-    void ChangeLayers(string newLayer)
+    public void ChangeLayers(string newLayer)
     {
         Transform[] hierarchyObjects = transform.GetComponentsInChildren<Transform>();
 

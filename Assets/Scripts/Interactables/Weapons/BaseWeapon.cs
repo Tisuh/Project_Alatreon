@@ -3,13 +3,16 @@ using TMPro;
 
 public abstract class BaseWeapon : BasePickUp
 {
-    [Header("Stats")]
+    [Header("Ammo Stats")]
     [SerializeField] private int maxAmmo;
     [SerializeField] private int minAmmo;
     [SerializeField] protected int currentAmmo;
+
+    [Header("Damage Stats")]
     [SerializeField] protected int damage;
     [SerializeField] private int rpm = 600;
     [SerializeField] protected int weaponRange = 100;
+    [SerializeField] protected elementType element;
 
     [Header("Refs")]
     [SerializeField] private TextMeshProUGUI ammoCounter;

@@ -11,8 +11,10 @@ public class HitscanWeapon : BaseWeapon
 
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
 
-        Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.peru, 1);
+        Debug.DrawRay(ray.origin, ray.direction.normalized * weaponRange, Color.peru, 1);
         Debug.Log("antes del raycast " + ray);
+
+        Physics.SyncTransforms();
         if (Physics.Raycast(ray, out RaycastHit hit, weaponRange, affectedLayers))
         {
             Debug.Log("depues del raycast");
@@ -20,7 +22,7 @@ public class HitscanWeapon : BaseWeapon
             {
                 Debug.Log("impacto registrado");
 
-                health.TakeDamage(damage);
+                health.TakeDamage(damage, element);
             }
         }
     }
