@@ -20,8 +20,6 @@ public abstract class BaseHealth : MonoBehaviour
 
     public void TakeDamage(int damage, elementType damageElement = elementType.neutral)
     {
-        GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
-
         float finalDamage = damage * DamageMultiplier(damageElement);
 
         currentHealth -= Mathf.RoundToInt(finalDamage);

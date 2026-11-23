@@ -18,7 +18,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
 
     private NavMeshAgent agent;
-    private Transform chaseTarget;
+    protected Transform chaseTarget;
     private bool canAttack = true;
     private float lookAtSpeed = 10;
 
