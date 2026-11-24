@@ -3,9 +3,9 @@ using UnityEngine;
 public abstract class BasePickUp : BaseInteractable
 {
     private InteractableDetector intDet;
-
     private Collider col;
     private Rigidbody rb;
+    private bool isThrown = false;
 
     [SerializeField] private float throwForce = 50;
 
@@ -13,6 +13,17 @@ public abstract class BasePickUp : BaseInteractable
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isThrown)
+        {
+            isThrown = false;
+            rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+
+            collision.collider.GetComponent<BaseHealth>().TakeDamage(20);
+        }
     }
 
 
@@ -53,7 +64,10 @@ public abstract class BasePickUp : BaseInteractable
     public void ThrowItem() // Lanzar objeto
     {
         DropItem(); // Reutilizar DropItem
+        rb.linearVelocity = Vector3.zero; // Poner velocidad a 0 para que no se acumulen fuerzas
         rb.AddForce(Camera.main.transform.forward.normalized * throwForce, ForceMode.VelocityChange); // Aplicar fuerza
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // Cambiar modo de deteccion de colisiones a continuous
+        isThrown = true;
     }
 
     public void ChangeLayers(string newLayer)
