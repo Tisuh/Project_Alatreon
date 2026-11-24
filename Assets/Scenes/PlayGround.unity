@@ -4852,7 +4852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba67f47a3ae0c041b388104e787163b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitscanWeapon
-  throwForce: 50
+  throwForce: 30
   maxAmmo: 3000
   minAmmo: 3000
   currentAmmo: 0
