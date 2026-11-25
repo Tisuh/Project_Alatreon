@@ -2000,6 +2000,7 @@ MonoBehaviour:
   element: 0
   respawnTf: {fileID: 1060603610}
   healthBarFiller: {fileID: 1104036123}
+  healthBarUpdateSpeed: 5
 --- !u!1 &668722855
 GameObject:
   m_ObjectHideFlags: 0

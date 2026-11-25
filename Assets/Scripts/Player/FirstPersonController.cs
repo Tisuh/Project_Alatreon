@@ -13,6 +13,11 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float dashDuration = 10;
     [SerializeField] private float dashCooldown = 10;
 
+    [Header("Slide Stats")]
+    [SerializeField] private Vector3 crouchColCenter;
+    [SerializeField] private float crouchHeight = 1;
+    [SerializeField] private float slideDuration;
+
     [Header("Refs")]
     [SerializeField] private Transform pivot;
     [SerializeField] private GameObject grapplingHook;
@@ -20,17 +25,19 @@ public class FirstPersonController : MonoBehaviour
     private Rigidbody rb;
     private GroundChecker gc;
     private LedgeClimber ledgeClimber;
+    private CapsuleCollider col;
     private Vector3 input;
     private float pivotRotationX;
     private bool isDashing;
     private bool canDash = true;
+    private bool isCrouching;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         gc = GetComponent<GroundChecker>();
         ledgeClimber = GetComponent<LedgeClimber>();
-
+        col = GetComponent<CapsuleCollider>();
     }
 
     private void Update()
@@ -51,26 +58,7 @@ public class FirstPersonController : MonoBehaviour
 
         if (Input.GetButtonDown("Dash") && canDash) // Dash
         {
-            if (input.sqrMagnitude > 0.001f) // Si la magnitud es mayor de 0.001f dashea en la dirección del movimiento
-            {
-                rb.linearVelocity = new Vector3(0, 0, 0);
-                rb.AddForce(input * dashForce, ForceMode.VelocityChange);
-                isDashing = true;
-                canDash = false;
-                rb.useGravity = false;
-
-                StartCoroutine(IsDashingCrt());
-            }
-            else // Si la magnitud es menor de 0.001f dashea hacia delante
-            {
-                rb.linearVelocity = new Vector3(0, 0, 0);
-                rb.AddForce(transform.forward * dashForce, ForceMode.VelocityChange);
-                isDashing = true;
-                canDash = false;
-                rb.useGravity = false;
-
-                StartCoroutine(IsDashingCrt());
-            }
+            Dash();
         }
 
         if (Input.GetButtonDown("GrapplingHook")) // Grappling Hook
@@ -87,6 +75,41 @@ public class FirstPersonController : MonoBehaviour
         movement.y = rb.linearVelocity.y; // Conservar la velocidad vertical para mantener la gravedad
 
         rb.linearVelocity = movement; // Aplicar el movimiento al Rigidbody
+    }
+
+    void Dash()
+    {
+        rb.linearVelocity = Vector3.zero;
+        isDashing = true;
+        canDash = false;
+        rb.useGravity = false;
+
+        if (input.sqrMagnitude > 0.001f) // Dashea en la direccion de movimiento del personaje
+        {
+            rb.AddForce(input * dashForce, ForceMode.VelocityChange);
+        }
+        else // Dashea hacia delante si no hay movimiento
+        {
+            rb.AddForce(transform.forward * dashForce, ForceMode.VelocityChange);
+        }
+
+        StartCoroutine(IsDashingCrt());
+    }
+
+    void CrouchAndSlide()
+    {
+        col.center = crouchColCenter;
+        col.height = 
+    }
+
+    void Crouch()
+    {
+        
+    }
+
+    void Slide()
+    {
+
     }
 
 
