@@ -757,7 +757,6 @@ MonoBehaviour:
   - {fileID: 1166460261}
   - {fileID: 1752511790}
   - {fileID: 687940992}
-  originalPoint: {fileID: 1166460261}
   speed: 5
   stopTime: 2
   platformStops: 1

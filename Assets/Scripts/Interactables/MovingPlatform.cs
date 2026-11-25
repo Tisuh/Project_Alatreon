@@ -4,8 +4,7 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
     [SerializeField] private Transform[] platformPoints;
-    [SerializeField] private Transform originalPoint;
-    [SerializeField] private float speed = 2f;
+    [SerializeField] private float speed = 5f;
     [SerializeField] private float stopTime = 2f;
     [SerializeField] private bool platformStops;
 
@@ -13,6 +12,7 @@ public class MovingPlatform : MonoBehaviour
     private int currentPoint = 0;
     private bool isStopped;
     private Transform target;
+    private Transform originalPoint;
 
     private void Awake()
     {
@@ -23,6 +23,7 @@ public class MovingPlatform : MonoBehaviour
     {
         target = platformPoints[currentPoint]; // Asignar el primer elemento del array como objetivo a seguir
 
+        originalPoint = platformPoints[0];
         originalPoint.SetParent(null); // Desemparentar el original point para que no se mueva con la plataforma
     }
 

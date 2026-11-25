@@ -13,10 +13,10 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float dashDuration = 10;
     [SerializeField] private float dashCooldown = 10;
 
-    [Header("Slide Stats")]
-    [SerializeField] private Vector3 crouchColCenter;
-    [SerializeField] private float crouchHeight = 1;
-    [SerializeField] private float slideDuration;
+    //[Header("Slide And Crouch Stats")]
+    //[SerializeField] private Vector3 crouchColCenterOffset;
+    //[SerializeField] private float crouchHeight = 1;
+    //[SerializeField] private float slideDuration;
 
     [Header("Refs")]
     [SerializeField] private Transform pivot;
@@ -30,14 +30,21 @@ public class FirstPersonController : MonoBehaviour
     private float pivotRotationX;
     private bool isDashing;
     private bool canDash = true;
-    private bool isCrouching;
+    //private bool isCrouching;
+    //private float defaultHeight;
+    //private Vector3 
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         gc = GetComponent<GroundChecker>();
         ledgeClimber = GetComponent<LedgeClimber>();
         col = GetComponent<CapsuleCollider>();
+    }
+
+    private void Start()
+    {
+        //defaultHeight = col.height;
     }
 
     private void Update()
@@ -60,6 +67,11 @@ public class FirstPersonController : MonoBehaviour
         {
             Dash();
         }
+
+        //if (Input.GetButtonDown("Crouch"))
+        //{
+        //    CrouchAndSlide();
+        //}
 
         if (Input.GetButtonDown("GrapplingHook")) // Grappling Hook
         {
@@ -96,21 +108,31 @@ public class FirstPersonController : MonoBehaviour
         StartCoroutine(IsDashingCrt());
     }
 
-    void CrouchAndSlide()
-    {
-        col.center = crouchColCenter;
-        col.height = 
-    }
+    //void CrouchAndSlide()
+    //{
+    //    if (!isCrouching)
+    //    {
+    //        col.center = crouchColCenterOffset;
+    //        col.height = crouchHeight;
+    //        isCrouching = true;
+    //    }
+    //    else
+    //    {
+    //        col.center = Vector3.zero;
+    //        col.height = defaultHeight;
+    //        isCrouching = false;
+    //    }
+    //}
 
-    void Crouch()
-    {
+    //void Crouch()
+    //{
         
-    }
+    //}
 
-    void Slide()
-    {
+    //void Slide()
+    //{
 
-    }
+    //}
 
 
 
