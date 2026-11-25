@@ -18,7 +18,7 @@ public abstract class BaseHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage, elementType damageElement = elementType.neutral)
+    public virtual void TakeDamage(int damage, elementType damageElement = elementType.neutral)
     {
         float finalDamage = damage * DamageMultiplier(damageElement);
 
