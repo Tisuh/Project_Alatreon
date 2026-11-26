@@ -10,7 +10,7 @@ public class GroundChecker : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.CheckBox(transform.position + groundCheckerOffset, groundCheckerSize * 2, Quaternion.identity, groundLayer);
+        isGrounded = Physics.CheckBox(transform.position + groundCheckerOffset, groundCheckerSize * 0.5f, Quaternion.identity, groundLayer);
     }
 
     private void OnDrawGizmos()

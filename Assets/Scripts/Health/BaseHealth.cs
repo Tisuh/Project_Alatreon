@@ -10,10 +10,9 @@ public abstract class BaseHealth : MonoBehaviour
     [SerializeField] protected int maxHealth = 100;
     [SerializeField] protected int minHealth = 0;
     [SerializeField] protected int currentHealth;
-
     [SerializeField] private elementType element;
 
-    private void Start()
+    protected virtual void Start()
     {
         currentHealth = maxHealth;
     }
@@ -36,21 +35,21 @@ public abstract class BaseHealth : MonoBehaviour
     {
         if (element == elementType.neutral || damageElement == elementType.neutral) return 1f; // Multiplicador si uno de los elementos es neutral
 
-        if (element == damageElement) return 0.75f; // Multiplicador si los dos elementos son iguales
+        if (element == damageElement) return 0.7f; // Multiplicador si los dos elementos son iguales
 
         switch (element)
         {
             case elementType.fire: // Si tu elemento es fuego
-                return damageElement == elementType.water ? 1.25f : 1f;
+                return damageElement == elementType.water ? 1.3f : 1f;
 
             case elementType.water: // Si tu elemento es agua
-                return damageElement == elementType.lightning ? 1.25f : 1f;
+                return damageElement == elementType.lightning ? 1.3f : 1f;
 
             case elementType.lightning: // Si tu elemento es rayo
-                return damageElement == elementType.rock ? 1.25f : 1f;
+                return damageElement == elementType.rock ? 1.3f : 1f;
 
             case elementType.rock: // Si tu elemento es roca
-                return damageElement == elementType.fire ? 1.25f : 1f;
+                return damageElement == elementType.fire ? 1.3f : 1f;
 
             default:
                 return 1f;

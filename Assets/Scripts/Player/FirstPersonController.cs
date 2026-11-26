@@ -41,6 +41,7 @@ public class FirstPersonController : MonoBehaviour
     private float pivotRotationX;
     private bool canDash = true;
     private float speedModifier = 1;
+    private CeilingChecker ceilingChecker;
     #endregion
 
     #region Métodos por defecto
@@ -50,6 +51,7 @@ public class FirstPersonController : MonoBehaviour
         gc = GetComponent<GroundChecker>();
         ledgeClimber = GetComponent<LedgeClimber>();
         col = GetComponent<CapsuleCollider>();
+        ceilingChecker = GetComponent<CeilingChecker>();
     }
 
     private void Start()
@@ -130,7 +132,7 @@ public class FirstPersonController : MonoBehaviour
 
     void CrouchAndSlide()
     {
-        if (movementType == MovementType.Crouch || movementType == MovementType.Slide) // Ponerse de pie
+        if ((movementType == MovementType.Crouch || movementType == MovementType.Slide) && !ceilingChecker.hasCeiling) // Ponerse de pie
         {
             movementType = MovementType.Default;
             defaultCollider.enabled = true;
@@ -181,7 +183,7 @@ public class FirstPersonController : MonoBehaviour
                 speedModifier = 1;
                 break;
             case MovementType.Slide:
-                speedModifier = 1;
+                speedModifier = crouchSpeedModifier;
                 break;
             default:
                 break;
