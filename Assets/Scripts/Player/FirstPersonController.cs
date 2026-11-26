@@ -1,39 +1,48 @@
 using System.Collections;
 using UnityEngine;
 
+public enum MovementType
+{
+    Default, Crouch, Dash, Slide
+}
+
 public class FirstPersonController : MonoBehaviour
 {
+    #region Variables serializadas
     [Header("General Stats")]
     [SerializeField] private float moveSpeed = 4;
     [SerializeField] private float rotationSpeed = 4;
     [SerializeField] private float jumpForce = 4;
+    [SerializeField] MovementType movementType;
 
     [Header("Dash Stats")]
     [SerializeField] private float dashForce = 10;
     [SerializeField] private float dashDuration = 10;
     [SerializeField] private float dashCooldown = 10;
 
-    //[Header("Slide And Crouch Stats")]
-    //[SerializeField] private Vector3 crouchColCenterOffset;
-    //[SerializeField] private float crouchHeight = 1;
-    //[SerializeField] private float slideDuration;
+    [Header("Slide And Crouch Stats")]
+    [SerializeField] private float crouchSpeedModifier = 0.5f;
+    [SerializeField] private float crouchPivotDisplacement = 0.6f;
+    [SerializeField] private float slideForce = 2;
+    [SerializeField] private Collider defaultCollider, crouchCollider;
 
     [Header("Refs")]
     [SerializeField] private Transform pivot;
     [SerializeField] private GameObject grapplingHook;
+    #endregion
 
+    #region Variables privadas
     private Rigidbody rb;
     private GroundChecker gc;
     private LedgeClimber ledgeClimber;
     private CapsuleCollider col;
     private Vector3 input;
     private float pivotRotationX;
-    private bool isDashing;
     private bool canDash = true;
-    //private bool isCrouching;
-    //private float defaultHeight;
-    //private Vector3 
+    private float speedModifier = 1;
+    #endregion
 
+    #region Métodos por defecto
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,7 +53,7 @@ public class FirstPersonController : MonoBehaviour
 
     private void Start()
     {
-        //defaultHeight = col.height;
+        
     }
 
     private void Update()
@@ -60,7 +69,14 @@ public class FirstPersonController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && gc.isGrounded) // Salto
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+            if (movementType == MovementType.Default)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+            }
+            else if (movementType == MovementType.Crouch || movementType == MovementType.Slide)
+            {
+                CrouchAndSlide();
+            }
         }
 
         if (Input.GetButtonDown("Dash") && canDash) // Dash
@@ -68,10 +84,10 @@ public class FirstPersonController : MonoBehaviour
             Dash();
         }
 
-        //if (Input.GetButtonDown("Crouch"))
-        //{
-        //    CrouchAndSlide();
-        //}
+        if (Input.GetButtonDown("Crouch")) // Crouch
+        {
+            CrouchAndSlide();
+        }
 
         if (Input.GetButtonDown("GrapplingHook")) // Grappling Hook
         {
@@ -81,18 +97,21 @@ public class FirstPersonController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDashing) return;
+        if (movementType == MovementType.Dash || movementType == MovementType.Slide) return;
 
-        Vector3 movement = input * moveSpeed; // Calcular la velocidad de movimiento
+        Vector3 movement = input * moveSpeed * speedModifier; // Calcular la velocidad de movimiento
         movement.y = rb.linearVelocity.y; // Conservar la velocidad vertical para mantener la gravedad
 
         rb.linearVelocity = movement; // Aplicar el movimiento al Rigidbody
     }
+    #endregion
 
+    #region Métodos personalizados
     void Dash()
     {
         rb.linearVelocity = Vector3.zero;
-        isDashing = true;
+        movementType = MovementType.Dash;
+        ChangeSpeedModifier();
         canDash = false;
         rb.useGravity = false;
 
@@ -108,38 +127,65 @@ public class FirstPersonController : MonoBehaviour
         StartCoroutine(IsDashingCrt());
     }
 
-    //void CrouchAndSlide()
-    //{
-    //    if (!isCrouching)
-    //    {
-    //        col.center = crouchColCenterOffset;
-    //        col.height = crouchHeight;
-    //        isCrouching = true;
-    //    }
-    //    else
-    //    {
-    //        col.center = Vector3.zero;
-    //        col.height = defaultHeight;
-    //        isCrouching = false;
-    //    }
-    //}
+    void CrouchAndSlide()
+    {
+        if (movementType == MovementType.Crouch || movementType == MovementType.Slide)
+        {
+            movementType = MovementType.Default;
+            defaultCollider.enabled = true;
+            crouchCollider.enabled = false;
+            pivot.position += Vector3.up * crouchPivotDisplacement;
+            ChangeSpeedModifier();
+        }
+        else if (movementType == MovementType.Default && input.sqrMagnitude > 0.001f)
+        {
+            Crouch(MovementType.Slide);
+            rb.linearVelocity = Vector3.zero;
+            rb.AddForce(input * slideForce, ForceMode.VelocityChange);
+        }
+        else if (movementType == MovementType.Default)
+        {
+            Crouch(MovementType.Crouch);
+        }
+    }
 
-    //void Crouch()
-    //{
-        
-    //}
+    void Crouch(MovementType movType)
+    {
+        movementType = movType;
+        defaultCollider.enabled = false;
+        crouchCollider.enabled = true;
+        pivot.position -= Vector3.up * crouchPivotDisplacement;
+        ChangeSpeedModifier();
+    }
 
-    //void Slide()
-    //{
+    void ChangeSpeedModifier() // Cambiar el modificador de velo
+    {
+        switch (movementType)
+        {
+            case MovementType.Default:
+                speedModifier = 1;
+                break;
+            case MovementType.Crouch:
+                speedModifier = crouchSpeedModifier;
+                break;
+            case MovementType.Dash:
+                speedModifier = 1;
+                break;
+            case MovementType.Slide:
+                speedModifier = 1;
+                break;
+            default:
+                break;
+        }
+    }
+    #endregion
 
-    //}
-
-
-
+    #region Corrutinas
     IEnumerator IsDashingCrt()
     {
         yield return new WaitForSeconds(dashDuration); // Tiempo para terminar el dash
-        isDashing = false;
+        movementType = MovementType.Default;
+        ChangeSpeedModifier();
         rb.useGravity = true;
 
         yield return new WaitForSeconds(dashCooldown - dashDuration); // Tiempo para recargar el dash
@@ -149,4 +195,5 @@ public class FirstPersonController : MonoBehaviour
         }
         canDash = true;
     }
+    #endregion
 }

@@ -1121,7 +1121,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 67.67275
+  field of view: 77.55214
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1767,6 +1767,7 @@ GameObject:
   - component: {fileID: 615257702}
   - component: {fileID: 615257701}
   - component: {fileID: 615257700}
+  - component: {fileID: 615257709}
   - component: {fileID: 615257699}
   - component: {fileID: 615257704}
   - component: {fileID: 615257705}
@@ -1837,7 +1838,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 615257698}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1915,12 +1916,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81e32ef6d535774680ee3b40b64afb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
-  moveSpeed: 6
+  moveSpeed: 6.5
   rotationSpeed: 4
-  jumpForce: 7
+  jumpForce: 8.5
+  movementType: 0
   dashForce: 30
   dashDuration: 0.15
   dashCooldown: 0.5
+  crouchSpeedModifier: 0.5
+  crouchPivotDisplacement: 0.6
+  slideForce: 7
+  defaultCollider: {fileID: 615257700}
+  crouchCollider: {fileID: 615257709}
   pivot: {fileID: 846348695}
   grapplingHook: {fileID: 574793845}
 --- !u!114 &615257705
@@ -2000,6 +2007,29 @@ MonoBehaviour:
   respawnTf: {fileID: 1060603610}
   healthBarFiller: {fileID: 1104036123}
   healthBarUpdateSpeed: 5
+--- !u!136 &615257709
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615257698}
+  m_Material: {fileID: 13400000, guid: 65e1fa782352d30449a734cb80ab24ca, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.2468369
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.37658155, z: 0}
 --- !u!1 &668722855
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,7 +2476,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 67.67275
+  field of view: 77.55214
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
