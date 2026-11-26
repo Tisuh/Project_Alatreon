@@ -24,6 +24,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float crouchSpeedModifier = 0.5f;
     [SerializeField] private float crouchPivotDisplacement = 0.6f;
     [SerializeField] private float slideForce = 2;
+    [SerializeField] private float slideMaxTime = 0.2f;
     [SerializeField] private Collider defaultCollider, crouchCollider;
 
     [Header("Refs")]
@@ -129,7 +130,7 @@ public class FirstPersonController : MonoBehaviour
 
     void CrouchAndSlide()
     {
-        if (movementType == MovementType.Crouch || movementType == MovementType.Slide)
+        if (movementType == MovementType.Crouch || movementType == MovementType.Slide) // Ponerse de pie
         {
             movementType = MovementType.Default;
             defaultCollider.enabled = true;
@@ -137,13 +138,21 @@ public class FirstPersonController : MonoBehaviour
             pivot.position += Vector3.up * crouchPivotDisplacement;
             ChangeSpeedModifier();
         }
-        else if (movementType == MovementType.Default && input.sqrMagnitude > 0.001f)
+        else if (movementType == MovementType.Default && input.sqrMagnitude > 0.001f) // Deslizarse por el suelo (si te estas moviendo)
         {
             Crouch(MovementType.Slide);
             rb.linearVelocity = Vector3.zero;
             rb.AddForce(input * slideForce, ForceMode.VelocityChange);
+
+            Coroutine slidingCoroutine = null;
+            if (slidingCoroutine != null)
+            {
+                StopCoroutine(slidingCoroutine);
+                slidingCoroutine = null;
+            }
+            slidingCoroutine = StartCoroutine(SlidingTimeCrt());
         }
-        else if (movementType == MovementType.Default)
+        else if (movementType == MovementType.Default) // Agacharse (si estas quieto)
         {
             Crouch(MovementType.Crouch);
         }
@@ -158,7 +167,7 @@ public class FirstPersonController : MonoBehaviour
         ChangeSpeedModifier();
     }
 
-    void ChangeSpeedModifier() // Cambiar el modificador de velo
+    void ChangeSpeedModifier() // Cambiar el modificador de velocidad
     {
         switch (movementType)
         {
@@ -194,6 +203,15 @@ public class FirstPersonController : MonoBehaviour
             yield return null;
         }
         canDash = true;
+    }
+
+    IEnumerator SlidingTimeCrt()
+    {
+        yield return new WaitForSeconds(slideMaxTime);
+        if (movementType == MovementType.Slide)
+        {
+            movementType = MovementType.Crouch;
+        }
     }
     #endregion
 }
