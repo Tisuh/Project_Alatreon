@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InteractableDetector : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InteractableDetector : MonoBehaviour
     [SerializeField] public BasePickUp interactableInHand;
     [SerializeField] private BaseInteractable detectedInteractable;
     [SerializeField] private Transform PickUpPoint;
+    [SerializeField] private Text interactText;
 
     private Ray ray;
 
@@ -17,7 +19,7 @@ public class InteractableDetector : MonoBehaviour
         {
             Detect();
         }
-        else if (Input.GetButtonDown("Interact"))
+        else if (Input.GetButtonDown("Interact")) // Soltar objeto
         {
             interactableInHand.DropItem();
             interactableInHand = null;
@@ -32,10 +34,11 @@ public class InteractableDetector : MonoBehaviour
             interactableInHand.TryToShoot();
         }
 
-        if (Input.GetButtonDown("Interact") && detectedInteractable != null)
+        if (Input.GetButtonDown("Interact") && detectedInteractable != null) // Interactuar o recoger
         {
             detectedInteractable.Interact(PickUpPoint);
             detectedInteractable = null;
+            ClearInteractText();
         }
     }
 
@@ -48,12 +51,23 @@ public class InteractableDetector : MonoBehaviour
             if (detectedInteractable == null)
             {
                 detectedInteractable = hit.collider.GetComponent<BaseInteractable>();
+
+                interactText.gameObject.SetActive(true); // Activa el texto de interactuar
+                interactText.text = "Press E to interact"; // Escribe el texto
             }
         }
         else if (detectedInteractable != null)
         {
             detectedInteractable = null;
+
+            ClearInteractText();
         }
+    }
+
+    void ClearInteractText()
+    {
+        interactText.gameObject.SetActive(false); // Desactiva el texto de interactuar
+        interactText.text = ""; // Limpia el texto
     }
 
     private void OnDrawGizmos()
