@@ -68,6 +68,7 @@ public class GrapplingHook : MonoBehaviour
         collision.collider.gameObject.transform.SetParent(this.transform); // El objeto colisionado se emparenta con este mismo
         grabbedPickUp = collision.collider.GetComponent<BasePickUp>();  // Se guarda referencia al componente BasePickUp
 
+        grabbedPickUp.GetComponent<Rigidbody>().isKinematic = true;
         grabbedPickUp.ChangeLayers("GrapplingHook"); // Cambia el objeto agarrado a la capa GrapplingHook para que interactable detector del player no lo detecte
     }
 
